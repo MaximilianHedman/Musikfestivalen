@@ -46,7 +46,8 @@ const fetchData = async () => {
             const day = createLabelledText(
                 "Dag",
                 artist.fields.day?.sys.id
-                    ? `${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.description} (${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.date})`
+                    ? `${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.description} 
+                      (${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.date})`
                     : "Okänd dag"
             );
 

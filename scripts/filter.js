@@ -65,13 +65,11 @@ const fetchAndRenderArtists = async () => {
                 return fieldData?.name || "Unknown";
             }))];
 
-        // Create filter dropdowns
         filterContainer.appendChild(createDropdown("Genre", getUniqueValues("genre"), "genreFilter"));
         filterContainer.appendChild(createDropdown("Day", getUniqueValues("day"), "dayFilter"));
         filterContainer.appendChild(createDropdown("Scene", getUniqueValues("stage"), "sceneFilter"));
 
         const renderArtists = (filters) => {
-            // Clear existing content safely
             while (contentDiv.firstChild) {
                 contentDiv.removeChild(contentDiv.firstChild);
             }
