@@ -95,6 +95,35 @@ body {
 
 .artist-card .label {
     font-weight: bold;
+    color: #333;
+}
+
+/*_______________________FILTERS_______________________*/
+#filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #2c3e50;
+    color: #fff;
+    border-radius: 1rem;
+}
+
+.filter-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    padding-right: .5rem;
+}
+
+.filter-select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
 }
 
 /*_______________________MEDIA QUERY__________________*/
@@ -135,6 +164,11 @@ body {
     .navbar-menu a:hover {
         background-color: transparent;
         color: #1abc9c;
+    }
+
+    #filters {
+        flex-direction: row;
+        gap: 2rem;
     }
 }
 

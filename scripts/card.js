@@ -16,11 +16,8 @@ const fetchData = async () => {
         }
 
         const data = await response.json();
-        console.log("Hämtad data:", data);
-
         const contentDiv = document.getElementById("content");
 
-        // Skapa DOM-element för artister
         data.items.forEach((artist) => {
             const artistCard = document.createElement("div");
             artistCard.classList.add("artist-card");
@@ -28,64 +25,49 @@ const fetchData = async () => {
             const artistName = document.createElement("h3");
             artistName.textContent = artist.fields.name || "Okänd artist";
 
-            const genre = document.createElement("p");
-            const genreLabel = document.createElement("span");
-            genreLabel.textContent = "Genre: ";
-            genreLabel.classList.add("label");
-            const genreValue = document.createTextNode(
-                artist.fields.genre
+            const createLabelledText = (label, value) => {
+                const container = document.createElement("p");
+                const labelSpan = document.createElement("span");
+                labelSpan.textContent = `${label}: `;
+                labelSpan.classList.add("label");
+                const textNode = document.createTextNode(value || "Okänd");
+                container.appendChild(labelSpan);
+                container.appendChild(textNode);
+                return container;
+            };
+
+            const genre = createLabelledText(
+                "Genre",
+                artist.fields.genre?.sys.id
                     ? data.includes.Entry.find((entry) => entry.sys.id === artist.fields.genre.sys.id)?.fields.name
                     : "Okänd genre"
             );
-            genre.appendChild(genreLabel);
-            genre.appendChild(genreValue);
 
-            const day = document.createElement("p");
-            const dayLabel = document.createElement("span");
-            dayLabel.textContent = "Dag: ";
-            dayLabel.classList.add("label");
+            const day = createLabelledText(
+                "Dag",
+                artist.fields.day?.sys.id
+                    ? `${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.description} (${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.date})`
+                    : "Okänd dag"
+            );
 
-            const dayData = artist.fields.day
-                ? `${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.description} 
-                  (${data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.date})`
-                : "Okänd dag";
-
-            const dayValue = document.createTextNode(dayData);
-            day.appendChild(dayLabel);
-            day.appendChild(dayValue);
-
-            const stage = document.createElement("p");
-            const stageLabel = document.createElement("span");
-            stageLabel.textContent = "Scen: ";
-            stageLabel.classList.add("label");
-
-            const stageValue = document.createTextNode(
-                artist.fields.stage
+            const stage = createLabelledText(
+                "Scen",
+                artist.fields.stage?.sys.id
                     ? data.includes.Entry.find((entry) => entry.sys.id === artist.fields.stage.sys.id)?.fields.name
                     : "Okänd scen"
             );
-            stage.appendChild(stageLabel);
-            stage.appendChild(stageValue);
 
-            const description = document.createElement("p");
-            const descriptionLabel = document.createElement("span");
-            descriptionLabel.textContent = "Beskrivning: ";
-            descriptionLabel.classList.add("label");
-
-            const descriptionValue = document.createTextNode(
+            const description = createLabelledText(
+                "Beskrivning",
                 artist.fields.description || "Ingen beskrivning tillgänglig."
             );
-            description.appendChild(descriptionLabel);
-            description.appendChild(descriptionValue);
 
-            // Lägg till element i kortet
             artistCard.appendChild(artistName);
             artistCard.appendChild(genre);
             artistCard.appendChild(day);
             artistCard.appendChild(stage);
             artistCard.appendChild(description);
 
-            // Lägg till kortet i innehållsbehållaren
             contentDiv.appendChild(artistCard);
         });
     } catch (error) {
