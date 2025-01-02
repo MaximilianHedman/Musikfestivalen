@@ -1,4 +1,4 @@
-const fetchAndRenderArtists = async () => {
+const fetchAndRenderFilterData = async () => {
     const baseUrl = "https://cdn.contentful.com/spaces/";
     const SPACE_ID = localStorage.getItem("space_id");
     const ACCESS_TOKEN = localStorage.getItem("access_token");
@@ -170,4 +170,4 @@ const fetchAndRenderArtists = async () => {
     }
 };
 
-fetchAndRenderArtists();
+fetchAndRenderFilterData();
