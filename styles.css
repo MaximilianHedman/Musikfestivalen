@@ -7,12 +7,13 @@
 }
 
 body {
-    color: #333;
+    color: #fff;
     background-color: #303030;
     background-image: url(images/festival_bg.svg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    background-position: center center;
     min-width: 375px;
 }
 
@@ -55,6 +56,35 @@ body {
 
 .navbar-menu a:hover {
     background-color: hsla(0, 0%, 100%, 0.25);
+}
+
+/*_______________________FILTERS_______________________*/
+#filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    color: #fff;
+}
+
+.filter-label {
+    margin-bottom: .5rem;
+    padding-right: .5rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.filter-select {
+    font-size: 1rem;
+    padding: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 /*_______________________CONTENT______________________*/
@@ -103,48 +133,8 @@ body {
     color: #fff;
 }
 
-/*_______________________FILTERS_______________________*/
-#filters {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
-    padding: 1rem;
-    color: #fff;
-}
-
-.filter-label {
-    margin-bottom: 0.5rem;
-    padding-right: .5rem;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.filter-select {
-    padding: 0.2rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    color: #333;
-    background-color: #fff;
-    cursor: pointer;
-}
-
 /*_______________________MEDIA QUERY__________________*/
 @media (min-width: 600px) {
-    #content {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 2rem;
-    }
-
-    .artist-card {
-        width: calc(50% - 1rem);
-    }
-
     #navbar {
         flex-direction: row;
         justify-content: space-between;
@@ -176,6 +166,17 @@ body {
     #filters {
         flex-direction: row;
         gap: 2rem;
+    }
+
+    #content {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 2rem;
+    }
+
+    .artist-card {
+        width: calc(50% - 1rem);
     }
 }
 
