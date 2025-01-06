@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
             const data = await response.json();
 
-            const filterContainer = document.getElementById("filters");
+            const filterContainer = document.getElementById("filter");
 
             const createDropdownHTML = (labelText, options, id) => {
                 return `

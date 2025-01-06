@@ -1,0 +1,36 @@
+/*_______________________FILTER_______________________*/
+#filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    color: #fff;
+}
+
+.filter-label {
+    margin-bottom: .5rem;
+    padding-right: .5rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.filter-select {
+    font-size: 1rem;
+    padding: 0.2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/*_______________________MEDIA QUERY__________________*/
+@media (min-width: 600px) {
+    #filter {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
