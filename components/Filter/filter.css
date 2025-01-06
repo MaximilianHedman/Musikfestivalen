@@ -1,5 +1,5 @@
-/*_______________________FILTERS_______________________*/
-#filters {
+/*_______________________FILTER_______________________*/
+#filter {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -29,7 +29,7 @@
 
 /*_______________________MEDIA QUERY__________________*/
 @media (min-width: 600px) {
-    #filters {
+    #filter {
         flex-direction: row;
         gap: 2rem;
     }
