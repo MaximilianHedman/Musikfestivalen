@@ -20,7 +20,6 @@
 .filter-select {
     font-size: 1rem;
     padding: .2rem;
-    border: 1px solid #ccc;
     border-radius: .5rem .5rem 0 0;
     color: #fff;
     background-color: hsla(0, 0%, 0%, 0.75);
@@ -32,7 +31,6 @@
 }
 
 .filter-select:focus {
-    border: 1px solid #ccc;
     outline: none;
 }
 
