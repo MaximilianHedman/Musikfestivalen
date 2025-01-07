@@ -35,6 +35,7 @@ const fetchAndRenderCardData = async () => {
                 const labelSpan = document.createElement("span");
                 labelSpan.textContent = `${label}: `;
                 labelSpan.classList.add("label");
+                
                 const textNode = document.createTextNode(value || "Unknown");
                 container.appendChild(labelSpan);
                 container.appendChild(textNode);

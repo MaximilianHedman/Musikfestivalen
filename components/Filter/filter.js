@@ -12,8 +12,8 @@ const fetchAndRenderFilterData = async () => {
     try {
         const response = await fetch(apiURL);
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-        const data = await response.json();
 
+        const data = await response.json();
         const filterContainer = document.getElementById("filter");
         const contentDiv = document.getElementById("content");
 
@@ -89,8 +89,8 @@ const fetchAndRenderFilterData = async () => {
                 };
 
                 return match("genre", filters.genre) &&
-                    match("day", filters.day) &&
-                    match("stage", filters.scene);
+                       match("day", filters.day) &&
+                       match("stage", filters.scene);
             });
 
             if (filteredItems.length === 0) {
@@ -112,6 +112,7 @@ const fetchAndRenderFilterData = async () => {
                     const labelSpan = document.createElement("span");
                     labelSpan.textContent = `${label}: `;
                     labelSpan.classList.add("label");
+                    
                     const textNode = document.createTextNode(value || "Unknown");
                     container.appendChild(labelSpan);
                     container.appendChild(textNode);
