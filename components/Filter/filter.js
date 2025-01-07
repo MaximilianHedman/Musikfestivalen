@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const response = await fetch(apiURL);
             if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-            const data = await response.json();
 
+            const data = await response.json();
             const filterContainer = document.getElementById("filter");
 
             const createDropdownHTML = (labelText, options, id) => {
