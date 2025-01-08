@@ -28,11 +28,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>`;
             };
 
-            const getUniqueValues = (field) => [...new Set(data.items.map((item) => {
-                const refId = item.fields[field]?.sys.id;
-                const fieldData = refId ? data.includes.Entry.find((entry) => entry.sys.id === refId)?.fields : null;
-                return field === "day" ? fieldData?.description || "Unknown" : fieldData?.name || "Unknown";
-            }))];
+            const getUniqueValues = (field) => [
+                ...new Set(
+                    data.items.map((item) => {
+                        const refId = item.fields[field]?.sys.id;
+                        const fieldData = refId
+                            ? data.includes.Entry.find(
+                                (entry) => entry.sys.id === refId
+                            )?.fields
+                            : null;
+                        return field === "day"
+                            ? fieldData?.description || "Unknown"
+                            : fieldData?.name || "Unknown";
+                    })
+                )
+            ];
 
             filterContainer.innerHTML = `
                 ${createDropdownHTML("Genre", getUniqueValues("genre"), "genreFilter")}
