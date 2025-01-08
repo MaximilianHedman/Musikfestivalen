@@ -1,30 +1,19 @@
-const createNavbar = () => {
+document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.getElementById("navbar");
-
-    const logo = document.createElement("a");
-    logo.classList.add("navbar-logo");
-    logo.textContent = "Musikfestivalen";
-    logo.href = "#";
-
-    const menu = document.createElement("div");
-    menu.classList.add("navbar-menu");
 
     const menuItems = [
         { text: "Home", href: "#" },
         { text: "Artists", href: "#artists" },
         { text: "Schedule", href: "#schedule" },
-        { text: "Contact", href: "#contact" },
+        { text: "Contact", href: "#contact" }
     ];
 
-    menuItems.forEach((item) => {
-        const link = document.createElement("a");
-        link.textContent = item.text;
-        link.href = item.href;
-        menu.appendChild(link);
-    });
+    const navbarHTML = `
+        <a class="navbar-logo" href="#">Musikfestivalen</a>
+        <div class="navbar-menu">
+            ${menuItems.map(item => `<a href="${item.href}">${item.text}</a>`).join('')}
+        </div>
+    `;
 
-    navbar.appendChild(logo);
-    navbar.appendChild(menu);
-};
-
-createNavbar();
+    navbar.innerHTML = navbarHTML;
+});

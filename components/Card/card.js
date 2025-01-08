@@ -1,4 +1,4 @@
-const fetchAndRenderCardData = async () => {
+const fetchAndRenderCardData = async (filters = {}) => {
     const baseUrl = "https://cdn.contentful.com/spaces/";
     const SPACE_ID = localStorage.getItem("space_id");
     const ACCESS_TOKEN = localStorage.getItem("access_token");
@@ -12,75 +12,35 @@ const fetchAndRenderCardData = async () => {
     try {
         const response = await fetch(apiURL);
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-        const data = await response.json();
 
+        const data = await response.json();
         const contentDiv = document.getElementById("content");
 
         if (!data.items || data.items.length === 0) {
-            const noDataMessage = document.createElement("p");
-            noDataMessage.textContent = "No artists available to display.";
-            contentDiv.appendChild(noDataMessage);
+            contentDiv.innerHTML = `<p>No artists available to display.</p>`;
             return;
         }
 
-        data.items.forEach((artist) => {
-            const artistCard = document.createElement("div");
-            artistCard.classList.add("artist-card");
-
-            const artistName = document.createElement("h3");
-            artistName.textContent = artist.fields.name || "Unknown Artist";
-
-            const createLabelledText = (label, value) => {
-                const container = document.createElement("p");
-                const labelSpan = document.createElement("span");
-                labelSpan.textContent = `${label}: `;
-                labelSpan.classList.add("label");
-                
-                const textNode = document.createTextNode(value || "Unknown");
-                container.appendChild(labelSpan);
-                container.appendChild(textNode);
-                return container;
-            };
-
-            const genre = createLabelledText(
-                "Genre",
-                artist.fields.genre?.sys.id
-                    ? data.includes.Entry.find((entry) => entry.sys.id === artist.fields.genre.sys.id)?.fields.name
-                    : "Unknown"
-            );
-
-            const day = createLabelledText(
-                "Day",
-                artist.fields.day?.sys.id
-                    ? data.includes.Entry.find((entry) => entry.sys.id === artist.fields.day.sys.id)?.fields.description
-                    : "Unknown"
-            );
-
-            const stage = createLabelledText(
-                "Stage",
-                artist.fields.stage?.sys.id
-                    ? data.includes.Entry.find((entry) => entry.sys.id === artist.fields.stage.sys.id)?.fields.name
-                    : "Unknown"
-            );
-
-            const description = createLabelledText(
-                "Description",
-                artist.fields.description || "No description available."
-            );
-
-            artistCard.appendChild(artistName);
-            artistCard.appendChild(genre);
-            artistCard.appendChild(day);
-            artistCard.appendChild(stage);
-            artistCard.appendChild(description);
-
-            contentDiv.appendChild(artistCard);
+        const filteredItems = data.items.filter(artist => {
+            const genreMatch = !filters.genre || (artist.fields.genre?.sys.id && data.includes.Entry.find(entry => entry.sys.id === artist.fields.genre.sys.id)?.fields.name === filters.genre);
+            const dayMatch = !filters.day || (artist.fields.day?.sys.id && data.includes.Entry.find(entry => entry.sys.id === artist.fields.day.sys.id)?.fields.description === filters.day);
+            const stageMatch = !filters.stage || (artist.fields.stage?.sys.id && data.includes.Entry.find(entry => entry.sys.id === artist.fields.stage.sys.id)?.fields.name === filters.stage);
+            return genreMatch && dayMatch && stageMatch;
         });
+
+        contentDiv.innerHTML = filteredItems.length ? filteredItems.map(artist => `
+            <div class="artist-card">
+                <h3>${artist.fields.name || "Unknown Artist"}</h3>
+                <p><strong>Genre:</strong> ${artist.fields.genre?.sys.id ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.genre.sys.id)?.fields.name : "Unknown"}</p>
+                <p><strong>Day:</strong> ${artist.fields.day?.sys.id ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.day.sys.id)?.fields.description : "Unknown"}</p>
+                <p><strong>Stage:</strong> ${artist.fields.stage?.sys.id ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.stage.sys.id)?.fields.name : "Unknown"}</p>
+                <p><strong>Description:</strong> ${artist.fields.description || "No description available."}</p>
+            </div>
+        `).join('') : '<p>No artists match the selected filters.</p>';
+
     } catch (error) {
         console.error("Error:", error);
-
-        const contentDiv = document.getElementById("content");
-        contentDiv.textContent = "An error occurred while fetching data. Please try again later.";
+        document.getElementById("content").innerHTML = `<p>An error occurred while fetching data. Please try again later.</p>`;
     }
 };
 
