@@ -4,6 +4,25 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
+    /* Firefox (Limited Styling Control) */
+    scrollbar-width: thin;
+    scrollbar-color: hsla(0, 0%, 0%, 0.75) hsla(0, 0%, 0%, 0.50);
+}
+
+/* Webkit Browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: .5rem;
+    background: linear-gradient(to bottom, #000, #800080);
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsla(0, 0%, 0%, 0.75);
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-track {
+    background: hsla(0, 0%, 0%, 0.50);
 }
 
 body {
@@ -15,18 +34,4 @@ body {
     background-size: cover;
     background-position: center center;
     min-width: 375px;
-}
-
-::-webkit-scrollbar {
-    width: 1rem;
-    background: linear-gradient(to bottom, #000, #800080);
-}
-
-::-webkit-scrollbar-thumb {
-    background: hsla(0, 0%, 0%, 0.75);
-    border-radius: 1rem;
-}
-
-::-webkit-scrollbar-track {
-    background: hsla(0, 0%, 0%, 0.50);
 }
