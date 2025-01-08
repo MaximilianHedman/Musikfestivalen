@@ -47,7 +47,6 @@ const fetchAndRenderCardData = async (filters = {}) => {
             ? filteredItems.map(artist => `
                 <div class="artist-card">
                     <h3>${artist.fields.name || "Unknown Artist"}</h3>
-
                     <p>
                         <strong>Genre:</strong> 
                         ${artist.fields.genre?.sys.id
