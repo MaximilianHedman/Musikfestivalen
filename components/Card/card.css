@@ -1,3 +1,12 @@
+/*_______________________CONTENT______________________*/
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+}
+
 /*_______________________CARD_________________________*/
 .artist-card {
     display: flex;
@@ -37,6 +46,13 @@
 
 /*_______________________MEDIA QUERY__________________*/
 @media (min-width: 600px) {
+    #content {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 2rem;
+    }
+
     .artist-card {
         width: calc(50% - 1rem);
     }

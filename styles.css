@@ -9,28 +9,10 @@
 body {
     color: #fff;
     background-color: #303030;
-    background-image: url(images/festival_bg_1.svg);
+    background-image: url(images/festival_bg_3.svg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
     min-width: 375px;
-}
-
-#content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 2rem 1rem;
-}
-
-/*_______________________MEDIA QUERY__________________*/
-@media (min-width: 600px) {
-    #content {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 2rem;
-    }
 }
