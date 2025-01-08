@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 (entry) => entry.sys.id === refId
                             )?.fields
                             : null;
+                            
                         return field === "day"
                             ? fieldData?.description || "Unknown"
                             : fieldData?.name || "Unknown";
