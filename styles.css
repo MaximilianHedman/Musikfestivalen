@@ -6,8 +6,8 @@
     box-sizing: border-box;
 
     /* Firefox (Limited Styling Control) */
-    scrollbar-width: thin;
-    scrollbar-color: hsla(0, 0%, 0%, 0.75) hsla(0, 0%, 0%, 0.50);
+    /* scrollbar-width: thin;
+    scrollbar-color: hsla(0, 0%, 0%, 0.75) hsla(0, 0%, 0%, 0.50); */
 }
 
 /* Webkit Browsers (Chrome, Edge, Safari) */

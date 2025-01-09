@@ -14,6 +14,9 @@ const fetchAndRenderCardData = async (filters = {}) => {
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
 
         const data = await response.json();
+        console.log("Fetched data: ", data);
+        console.log("Includes Entry: ", data.includes.Entry);
+
         const contentDiv = document.getElementById("content");
 
         if (!data.items || data.items.length === 0) {
@@ -24,53 +27,64 @@ const fetchAndRenderCardData = async (filters = {}) => {
         const filteredItems = data.items.filter(artist => {
             const genreMatch = !filters.genre || (
                 artist.fields.genre?.sys.id &&
-                data.includes.Entry.find(
-                    entry => entry.sys.id === artist.fields.genre.sys.id
+                data.includes.Entry.find(entry => entry.sys.id === artist.fields.genre.sys.id
                 )?.fields.name === filters.genre);
 
             const dayMatch = !filters.day || (
                 artist.fields.day?.sys.id &&
-                data.includes.Entry.find(
-                    entry => entry.sys.id === artist.fields.day.sys.id
+                data.includes.Entry.find(entry => entry.sys.id === artist.fields.day.sys.id
                 )?.fields.description === filters.day);
 
             const stageMatch = !filters.stage || (
                 artist.fields.stage?.sys.id &&
-                data.includes.Entry.find(
-                    entry => entry.sys.id === artist.fields.stage.sys.id
+                data.includes.Entry.find(entry => entry.sys.id === artist.fields.stage.sys.id
                 )?.fields.name === filters.stage);
 
             return genreMatch && dayMatch && stageMatch;
         });
 
         contentDiv.innerHTML = filteredItems.length
-            ? filteredItems.map(artist => `
+            ? filteredItems.map(artist => {
+                const genreEntry = artist.fields.genre?.sys.id
+                    ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.genre.sys.id)?.fields
+                    : null;
+
+                const genreName = genreEntry?.name || "Unknown";
+
+                const dayEntry = artist.fields.day?.sys.id
+                    ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.day.sys.id)?.fields
+                    : null;
+
+                const dayDescription = dayEntry?.description || "Unknown";
+                const dayDate = dayEntry?.date || "Unknown date";
+
+                const stageEntry = artist.fields.stage?.sys.id
+                    ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.stage.sys.id)?.fields
+                    : null;
+
+                const stageName = stageEntry?.name || "Unknown";
+
+                return `
                 <div class="artist-card">
                     <h3>${artist.fields.name || "Unknown Artist"}</h3>
                     <p>
                         <strong>Genre:</strong> 
-                        ${artist.fields.genre?.sys.id
-                        ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.genre.sys.id)?.fields.name
-                        : "Unknown"}
+                        ${genreName}
                     </p>
                     <p>
                         <strong>Day:</strong> 
-                        ${artist.fields.day?.sys.id
-                        ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.day.sys.id)?.fields.description
-                        : "Unknown"}
+                        ${dayDescription} (${dayDate})
                     </p>
                     <p>
                         <strong>Stage:</strong> 
-                        ${artist.fields.stage?.sys.id
-                        ? data.includes.Entry.find(entry => entry.sys.id === artist.fields.stage.sys.id)?.fields.name
-                        : "Unknown"}
+                        ${stageName}
                     </p>
                     <p>
                         <strong>Description:</strong> 
                         ${artist.fields.description || "No description available."}
                     </p>
-                </div>
-        `).join('') : '<p>No artists match the selected filters.</p>';
+                </div>`;
+            }).join('') : `<p>No artists match the selected filters.</p>`;
 
     } catch (error) {
         console.error("Error:", error);
